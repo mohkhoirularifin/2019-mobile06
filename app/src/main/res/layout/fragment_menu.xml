@@ -8,8 +8,8 @@
 
     <Button
         android:id="@+id/button_broca"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="385dp"
+        android:layout_height="41dp"
         android:layout_marginBottom="10dp"
         android:text="Broca Index"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
@@ -18,8 +18,8 @@
 
     <Button
         android:id="@+id/button_bmi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="385dp"
+        android:layout_height="41dp"
         android:layout_marginTop="10dp"
         android:text="Body Mass INdex"
         app:layout_constraintEnd_toEndOf="parent"
