@@ -68,16 +68,6 @@
             android:text="Female" />
     </RadioGroup>
 
-<!--    <EditText-->
-<!--        android:id="@+id/input_height"-->
-<!--        android:layout_width="297dp"-->
-<!--        android:layout_height="48dp"-->
-<!--        android:ems="10"-->
-<!--        android:inputType="textPersonName"-->
-<!--        android:text=""-->
-<!--        app:layout_constraintStart_toStartOf="@+id/guideline3"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/group_gender" />-->
-
     <Button
         android:id="@+id/button_calculate"
         android:layout_width="386dp"
