@@ -1,7 +1,6 @@
 package id.ac.polinema.idealbodyweight.fragment;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,8 +8,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+
 
 import id.ac.polinema.idealbodyweight.R;
+import id.ac.polinema.idealbodyweight.util.BodyMassIndex;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,15 +33,25 @@ public class BoddyMassIndexFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_boddy_mass_index, container, false);
-    }
+        View view = inflater.inflate(R.layout.fragment_boddy_mass_index, container, false);
+        final EditText heightText  = view.findViewById(R.id.input_height);
+        final EditText weightText  = view.findViewById(R.id.input_weight);
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+        Button calculateButton = view.findViewById(R.id.button_calculate);
+        calculateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mListener != null) {
+                    String heightString = heightText.getText().toString();
+                    String weightString = weightText.getText().toString();
+                    int height = Integer.parseInt(heightString);
+                    int weight = Integer.parseInt(weightString);
+                    BodyMassIndex bodyMassIndex = new BodyMassIndex(height, weight);
+                    mListener.onCalculateBodyMassIndex(bodyMassIndex.getIndex(), bodyMassIndex.getClassific());
+                }
+            }
+        });
+        return view;
     }
 
     @Override
@@ -70,6 +83,6 @@ public class BoddyMassIndexFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onCalculateBodyMassIndex(float index, String classific);
     }
 }

@@ -91,5 +91,7 @@ public class MenuFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         void onBrocaIndexButtonClicked();
         void onBodyMassIndexButtonClicked();
+
+        void onFragmentInteraction(Uri uri);
     }
 }

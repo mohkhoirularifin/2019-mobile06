@@ -3,11 +3,13 @@ package id.ac.polinema.idealbodyweight;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import id.ac.polinema.idealbodyweight.fragment.AboutFragment;
+import id.ac.polinema.idealbodyweight.fragment.BoddyMassIndexFragment;
 import id.ac.polinema.idealbodyweight.fragment.BrocaIndexFragment;
 import id.ac.polinema.idealbodyweight.fragment.MenuFragment;
 import id.ac.polinema.idealbodyweight.fragment.ResultFragment;
@@ -15,13 +17,16 @@ import id.ac.polinema.idealbodyweight.fragment.ResultFragment;
 public class MainActivity extends AppCompatActivity implements
         MenuFragment.OnFragmentInteractionListener,
 		BrocaIndexFragment.OnFragmentInteractionListener,
-		ResultFragment.OnFragmentInteractionListener{
-	private AboutFragment aboutFragment;
+		ResultFragment.OnFragmentInteractionListener,
+		BoddyMassIndexFragment.OnFragmentInteractionListener {
+
 
 	// Deklarasikan atribut Fragment di sini
-    MenuFragment menuFragment;
+	private AboutFragment aboutFragment;
+	private MenuFragment menuFragment;
 	private BrocaIndexFragment brocaIndexFragment;
 	private ResultFragment resultFragment;
+	private BoddyMassIndexFragment bodyMassIndexFragment;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements
                 .commit();
 		brocaIndexFragment = new BrocaIndexFragment();
 		resultFragment = new ResultFragment();
+		bodyMassIndexFragment = new BoddyMassIndexFragment();
 
 	}
 
@@ -58,14 +64,17 @@ public class MainActivity extends AppCompatActivity implements
 	@Override
 	public void onBrocaIndexButtonClicked() {
 		getSupportFragmentManager().beginTransaction()
-				.replace(R.id.fragment_container, brocaIndexFragment)
+				.replace(R.id.fragment_container, brocaIndexFragment, "BrocaIndex")
+				.addToBackStack(null)
 				.commit();
 	}
 
-    @Override
-    public void onBodyMassIndexButtonClicked() {
-
-    }
+	public void onBodyMassIndexButtonClicked() {
+		getSupportFragmentManager().beginTransaction()
+				.replace(R.id.fragment_container, bodyMassIndexFragment, "BodyMassIndex")
+				.addToBackStack(null)
+				.commit();
+	}
 
 	@Override
 	public void onCalculateBrocaIndexClicked(float index) {
@@ -76,9 +85,26 @@ public class MainActivity extends AppCompatActivity implements
 	}
 
 	@Override
+	public void onCalculateBodyMassIndex(float index, String classific) {
+		resultFragment.setInformation(String.format("Your BMI is %.2f kg \r\n" + classific, index));
+		getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, resultFragment).commit();
+	}
+
+	@Override
 	public void onTryAgainButtonClicked(String tag) {
-		getSupportFragmentManager().beginTransaction()
-				.replace(R.id.fragment_container, brocaIndexFragment)
-				.commit();
+		if (tag.equalsIgnoreCase("BrocaIndex")){
+			getSupportFragmentManager().beginTransaction()
+					.replace(R.id.fragment_container, brocaIndexFragment)
+					.commit();
+		} else {
+			getSupportFragmentManager().beginTransaction()
+					.replace(R.id.fragment_container, bodyMassIndexFragment)
+					.commit();
+		}
+	}
+
+	@Override
+	public void onFragmentInteraction(Uri uri) {
+
 	}
 }

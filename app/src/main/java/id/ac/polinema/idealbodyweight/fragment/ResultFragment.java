@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import id.ac.polinema.idealbodyweight.R;
+import id.ac.polinema.idealbodyweight.util.BrocaIndex;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,7 +46,11 @@ public class ResultFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (mListener != null) {
-                    mListener.onTryAgainButtonClicked("BrocaIndex");
+                    if (getFragmentManager().findFragmentByTag("BrocaIndex") instanceof BrocaIndexFragment) {
+                        mListener.onTryAgainButtonClicked("BrocaIndex");
+                    } else {
+                        mListener.onTryAgainButtonClicked("BodyMassIndex");
+                    }
                 }
             }
         });
